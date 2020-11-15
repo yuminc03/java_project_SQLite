@@ -41,16 +41,6 @@ public class MyDBHandler {
 
         sqLiteDatabase.insert("byeruss_make_room", null, value);
 
-//        if(database != null){
-//            String sql = "insert into customer(name, age, mobile) values(?,?,?)";
-//            Object[] params = {name, age, mobile};
-//
-//            database.execSQL(sql, params);
-//
-//            println("데이터 추가함함");
-//        }else{
-//            println("먼저 데이터베이스를 오픈하세요");
-//        }
     }
 
     public void delete(String name)

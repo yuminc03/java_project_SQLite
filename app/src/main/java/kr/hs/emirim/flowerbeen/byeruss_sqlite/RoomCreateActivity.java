@@ -108,6 +108,9 @@ public class RoomCreateActivity extends AppCompatActivity {
                     + input_place.getText().toString() + "');");
             sqLiteDatabase.close();
             Toast.makeText(RoomCreateActivity.this, "데이터가 입력되었습니다!", Toast.LENGTH_SHORT).show();
+            input_room.setText("");
+            input_time.setText("");
+            input_place.setText("");
         } else {
             Toast.makeText(RoomCreateActivity.this, "모든 방의 정보들을 입력하세요!", Toast.LENGTH_SHORT).show();
             return;

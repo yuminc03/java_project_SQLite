@@ -1,6 +1,7 @@
 package kr.hs.emirim.flowerbeen.byeruss_sqlite;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,11 +16,13 @@ import androidx.appcompat.app.AppCompatActivity;
 public class RoomListActivity extends AppCompatActivity{
 
     private final String TAG = "RoomListActivity";
-    private String DB_PATH =  "/data/data/kr.hs.emirim.flowerbeen.byeruss/byeruss_make_room.db";
+    private String DB_PATH =  "/data/data/kr.hs.emirim.flowerbeen.byeruss/byeruss_room.db";
 
     ListView room_list_view;
 
     MyDBHandler myDBHandler;
+    MySQLiteOpenHelper mySQLiteOpenHelper;
+    SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
     SimpleCursorAdapter simpleCursorAdapter;
     //cursor adapter는 커서로 읽은 정보를 list로 만들어 주는 역할을 한다.
@@ -37,12 +40,14 @@ public class RoomListActivity extends AppCompatActivity{
         room_list_view = findViewById(R.id.room_list_view);
         room_list_view.setOnItemLongClickListener(mLongClickListener);
 
-//        if( myDBHandler == null ) {
-//            myDBHandler = MyDBHandler.open(RoomListActivity.this, DB_PATH);
-//        }
-        cursor = myDBHandler.select();
+        mySQLiteOpenHelper = new MySQLiteOpenHelper(this);
+        sqLiteDatabase = mySQLiteOpenHelper.getWritableDatabase();
+
+        String sql = "SELECT * FROM byeruss_make_room;";
+        //cursor = myDBHandler.select();
+        cursor = sqLiteDatabase.rawQuery(sql, null);
         simpleCursorAdapter = new SimpleCursorAdapter(getApplicationContext(), R.layout.item_room,
-                cursor, new String[]{"roomId", "roomName", "roomTime", "roomPlace"}, new int[]{R.id.idTextView, R.id.roomNameTextView, R.id.roomTimeTextView, R.id.roomPlaceTextView}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+                cursor, new String[]{"roomName", "roomTime", "roomPlace"}, new int[]{R.id.roomNameTextView, R.id.roomTimeTextView, R.id.roomPlaceTextView}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 
         room_list_view.setAdapter(simpleCursorAdapter);
 
@@ -51,8 +56,8 @@ public class RoomListActivity extends AppCompatActivity{
         @Override
         public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
             cursor.moveToPosition(position);
-            Log.d(TAG, "index : " + cursor.getString(0) + "roomName : " + cursor.getString(1));
-            myDBHandler.delete(cursor.getString(1));
+            Log.d(TAG, "roomName : " + cursor.getString(0));
+            myDBHandler.delete(cursor.getString(0));
 
             cursor = myDBHandler.select();  // DB 새로 가져오기
             simpleCursorAdapter.changeCursor(cursor); // Adapter에 변경된 Cursor 설정하기
@@ -61,8 +66,7 @@ public class RoomListActivity extends AppCompatActivity{
             return true;
         }
     };
-
-
+    
     @Override
     protected void onDestroy() {
         super.onDestroy();
