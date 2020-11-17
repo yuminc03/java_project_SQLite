@@ -1,6 +1,8 @@
 package kr.hs.emirim.flowerbeen.byeruss_sqlite;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -18,7 +20,15 @@ public class RoomFindActivity extends AppCompatActivity {
         setContentView(R.layout.activity_room_find);
 
         text_input_code = findViewById(R.id.text_input_code);
-        btn_check = (Button)findViewById(R.id.btn_check);
-        btn_cancel = (Button)findViewById(R.id.btn_cancel );
+        btn_check = findViewById(R.id.btn_check);
+        btn_cancel = findViewById(R.id.btn_cancel );
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RoomFindActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

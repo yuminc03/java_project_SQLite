@@ -23,9 +23,6 @@ public class RoomCreateActivity extends AppCompatActivity {
     private Button btn_cancel_room;
     private Button btn_overlap;
 
-    private String roomName = "";
-    private String roomTime = "";
-    private String roomPlace = "";
     private int buttonclick = 0;
 
     MyDBHandler myDBHandler;
