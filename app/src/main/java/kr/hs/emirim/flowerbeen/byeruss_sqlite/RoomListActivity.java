@@ -29,7 +29,7 @@ public class RoomListActivity extends AppCompatActivity{
 
     private ArrayList arrayList = new ArrayList<>();
     private ArrayList<roomItem> roomitem = new ArrayList<roomItem>();
-    private Context context;
+    private Context context; 
 
     MyDBHandler myDBHandler;
     MySQLiteOpenHelper mySQLiteOpenHelper;
