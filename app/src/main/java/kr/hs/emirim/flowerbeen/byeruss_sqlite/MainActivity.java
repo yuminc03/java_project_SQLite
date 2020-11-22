@@ -28,6 +28,12 @@ public class MainActivity extends AppCompatActivity{
         btn_my_room = findViewById(R.id.btn_my_room);
         btn_log_out = findViewById(R.id.btn_log_out);
 
+        tv_user.append("유저이름");
+
+//        Intent intent = getIntent();
+//        String userID = intent.getStringExtra("유저이름");
+//        tv_user.setText(userID);
+
         btn_make_room.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

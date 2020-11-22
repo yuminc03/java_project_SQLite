@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,7 +28,7 @@ public class RoomListActivity extends AppCompatActivity{
 
     private ArrayList arrayList = new ArrayList<>();
     private ArrayList<roomItem> roomitem = new ArrayList<roomItem>();
-    private Context context; 
+    private Context context;
 
     MyDBHandler myDBHandler;
     MySQLiteOpenHelper mySQLiteOpenHelper;
@@ -79,13 +78,13 @@ public class RoomListActivity extends AppCompatActivity{
     AdapterView.OnItemLongClickListener mLongClickListener = new AdapterView.OnItemLongClickListener() {
         @Override
         public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
-            cursor.moveToPosition(position);
-            Log.d(TAG, "roomName : " + cursor.getString(0));
-            myDBHandler.delete(cursor.getString(0));
-
-            cursor = myDBHandler.select();  // DB 새로 가져오기
-            simpleCursorAdapter.changeCursor(cursor); // Adapter에 변경된 Cursor 설정하기
-            simpleCursorAdapter.notifyDataSetChanged(); // 업데이트 하기
+//            cursor.moveToPosition(position);
+//            Log.d(TAG, "roomName : " + cursor.getString(0));
+//            myDBHandler.delete(cursor.getString(0));
+//
+//            cursor = myDBHandler.select();  // DB 새로 가져오기
+//            simpleCursorAdapter.changeCursor(cursor); // Adapter에 변경된 Cursor 설정하기
+//            simpleCursorAdapter.notifyDataSetChanged(); // 업데이트 하기
 
             return true;
         }

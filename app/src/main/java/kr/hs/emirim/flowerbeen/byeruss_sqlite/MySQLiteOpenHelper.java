@@ -32,7 +32,12 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
         String CREATE_MEMBER_TABLE = "CREATE TABLE " +  Config.MEMBER_TABLE_NAME + "("
                 + Config.COLUMN_MEMBER_ID + " INTEGER NOT NULL PRIMARY KEY, "
-                + Config.COLUMN_MEMBER_1 + " TEXT, "
+                + Config.COLUMN_MEMBER_1 + " TEXT NOT NULL, "
+                + Config.COLUMN_MEMBER_2 + " TEXT, "
+                + Config.COLUMN_MEMBER_3 + " TEXT, "
+                + Config.COLUMN_MEMBER_4 + " TEXT, "
+                + Config.COLUMN_MEMBER_5 + " TEXT, "
+                + Config.COLUMN_MEMBER_6 + " TEXT, "
                 + "FOREIGN KEY (" + Config.COLUMN_MEMBER_ID + ") REFERENCES " + Config.ROOM_TABLE_NAME + "(" + Config.COLUMN_ROOM_NAME + ") ON UPDATE CASCADE ON DELETE CASCADE"
                 + ")";
         sqLiteDatabase.execSQL(CREATE_ROOM_TABLE);

@@ -13,7 +13,12 @@ public class Config {
     //방에 있는 멤버 테이블
     public static final String MEMBER_TABLE_NAME = "byeruss_room_members";
     public static final String COLUMN_MEMBER_ID = "myRoomId";
-    public static final String COLUMN_MEMBER_1 = "membersId";
+    public static final String COLUMN_MEMBER_1 = "membersId1";
+    public static final String COLUMN_MEMBER_2 = "membersId2";
+    public static final String COLUMN_MEMBER_3 = "membersId3";
+    public static final String COLUMN_MEMBER_4 = "membersId4";
+    public static final String COLUMN_MEMBER_5 = "membersId5";
+    public static final String COLUMN_MEMBER_6 = "membersId6";
 
 
     public static final String TITLE = "title";
