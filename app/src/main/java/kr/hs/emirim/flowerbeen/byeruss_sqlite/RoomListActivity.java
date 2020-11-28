@@ -1,7 +1,6 @@
 package kr.hs.emirim.flowerbeen.byeruss_sqlite;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -26,19 +24,15 @@ public class RoomListActivity extends AppCompatActivity{
 
     private ListView room_list_view;
     private String roomName, roomTime, roomPlace;
-    private Button back_to_menu;
+    //private Button back_to_menu;
 
     private ArrayList arrayList = new ArrayList<>();
-    private ArrayList<roomItem> roomitem = new ArrayList<roomItem>();
-    private Context context;
-
-    MyDBHandler myDBHandler;
-    MySQLiteOpenHelper mySQLiteOpenHelper;
-    SQLiteDatabase sqLiteDatabase;
-    Cursor cursor;
-    Button btn_ok, btn_cancel;
-
+    private ArrayList<roomItem> roomitem = new ArrayList<>();
     private ArrayAdapter listAdapter;
+
+    private MySQLiteOpenHelper mySQLiteOpenHelper;
+    private SQLiteDatabase sqLiteDatabase;
+    private Cursor cursor;
     //cursor adapter는 커서로 읽은 정보를 list로 만들어 주는 역할을 한다.
     //따라서 DB에서 읽은 정보를 listview 형태로 보여줄때 사용한다.
     //Simple Cursor Adapter : cursor adatper중에 가장 간단한 adapter 이다.
@@ -50,23 +44,27 @@ public class RoomListActivity extends AppCompatActivity{
         setContentView(R.layout.activity_room_list);
 
         listAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, arrayList);
-        ArrayList arrayList = new ArrayList<>();
-        ArrayList<roomItem> roomitem = new ArrayList<roomItem>();
 
         room_list_view = findViewById(R.id.room_list_view);
         room_list_view.setOnItemLongClickListener(mLongClickListener);
-        back_to_menu = findViewById(R.id.back_to_menu);
+        //back_to_menu = findViewById(R.id.back_to_menu);
 
         mySQLiteOpenHelper = new MySQLiteOpenHelper(this);
-        show(listAdapter, mySQLiteOpenHelper, room_list_view);
+        selectRoom(listAdapter, mySQLiteOpenHelper, room_list_view);
 
-        btn_ok = findViewById(R.id.btn_ok);
-        btn_cancel = findViewById(R.id.btn_cancel);
+//        back_to_menu.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(RoomListActivity.this, MainActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
-        back_to_menu.setOnClickListener(new View.OnClickListener() {
+        room_list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {//모임을 클릭했을 때 intent이동
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(RoomListActivity.this, MainActivity.class);
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(), MemberListActivity.class);
+                intent.putExtra("roomName", roomName);
                 startActivity(intent);
             }
         });
@@ -82,7 +80,7 @@ public class RoomListActivity extends AppCompatActivity{
             builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    delete(listAdapter, mySQLiteOpenHelper, room_list_view);
+                    deleteRoom(listAdapter, mySQLiteOpenHelper, room_list_view);
                     Toast.makeText(getApplicationContext(), "모임이 삭제되었습니다!!", Toast.LENGTH_LONG).show();
                     Toast.makeText(getApplicationContext(), "메뉴로 갔다가 다시 들어오세요~", Toast.LENGTH_LONG).show();
                     dialogInterface.dismiss();
@@ -100,14 +98,7 @@ public class RoomListActivity extends AppCompatActivity{
             return true;
         }
     };
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        myDBHandler.close();
-    }
-
-    public void delete(ArrayAdapter listAdapter, MySQLiteOpenHelper mySQLiteOpenHelper, ListView listView){
+    public void deleteRoom(ArrayAdapter listAdapter, MySQLiteOpenHelper mySQLiteOpenHelper, ListView listView){
         int count, checked;
         count = listAdapter.getCount();
         try{
@@ -133,14 +124,15 @@ public class RoomListActivity extends AppCompatActivity{
         }
     }
 
-    public void show(ArrayAdapter listAdapter, MySQLiteOpenHelper mySQLiteOpenHelper, ListView listView){
+    public void selectRoom(ArrayAdapter listAdapter, MySQLiteOpenHelper mySQLiteOpenHelper, ListView listView){
         listAdapter.clear();
         roomitem.clear();
+
         sqLiteDatabase = mySQLiteOpenHelper.getWritableDatabase();
         cursor = sqLiteDatabase.rawQuery("SELECT * FROM byeruss_make_room", null);
         if(cursor != null){
             cursor.move(0);
-            while(cursor.moveToNext()){
+            while(cursor.moveToNext()) {
                 roomName = cursor.getString(cursor.getColumnIndex("roomName"));
                 roomTime = cursor.getString(cursor.getColumnIndex("roomTime"));
                 roomPlace = cursor.getString(cursor.getColumnIndex("roomPlace"));

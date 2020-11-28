@@ -31,19 +31,18 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
                 + ")";
 
         String CREATE_MEMBER_TABLE = "CREATE TABLE " +  Config.MEMBER_TABLE_NAME + "("
-                + Config.COLUMN_MEMBER_ID + " INTEGER NOT NULL PRIMARY KEY, "
+                + Config.COLUMN_MEMBER_ID + " TEXT NOT NULL PRIMARY KEY, "
                 + Config.COLUMN_MEMBER_1 + " TEXT NOT NULL, "
-                + Config.COLUMN_MEMBER_2 + " TEXT, "
-                + Config.COLUMN_MEMBER_3 + " TEXT, "
-                + Config.COLUMN_MEMBER_4 + " TEXT, "
-                + Config.COLUMN_MEMBER_5 + " TEXT, "
-                + Config.COLUMN_MEMBER_6 + " TEXT, "
+//                + Config.COLUMN_MEMBER_2 + " TEXT, "
+//                + Config.COLUMN_MEMBER_3 + " TEXT, "
+//                + Config.COLUMN_MEMBER_4 + " TEXT, "
+//                + Config.COLUMN_MEMBER_5 + " TEXT, "
+//                + Config.COLUMN_MEMBER_6 + " TEXT, "
                 + "FOREIGN KEY (" + Config.COLUMN_MEMBER_ID + ") REFERENCES " + Config.ROOM_TABLE_NAME + "(" + Config.COLUMN_ROOM_NAME + ") ON UPDATE CASCADE ON DELETE CASCADE"
-                + ")";
+                + ")";//COLUMN_MEMBER_ID에 외래 키 적용하여 두개의 테이블을 연결하여 관계성을 가지게 한다.
         sqLiteDatabase.execSQL(CREATE_ROOM_TABLE);
         sqLiteDatabase.execSQL(CREATE_MEMBER_TABLE);
 
-        //Logger.d("DB created! ");
     }
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {//사용중인 코드의 버전이 바뀐 경우 호출

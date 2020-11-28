@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity{
         btn_my_room = findViewById(R.id.btn_my_room);
         btn_log_out = findViewById(R.id.btn_log_out);
 
-        tv_user.append("유저이름");
+        tv_user.append("userName");
 
 //        Intent intent = getIntent();
 //        String userID = intent.getStringExtra("유저이름");
@@ -37,7 +37,9 @@ public class MainActivity extends AppCompatActivity{
         btn_make_room.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String userID = tv_user.getText().toString();
                 Intent intent = new Intent(MainActivity.this, RoomCreateActivity.class);
+                intent.putExtra("userID", userID);
                 startActivity(intent);
             }
         });

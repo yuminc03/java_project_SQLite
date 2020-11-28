@@ -7,38 +7,25 @@
     android:layout_width="match_parent"
     tools:context=".RoomListActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
         <LinearLayout
-            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:layout_editor_absoluteX="108dp"
-            tools:layout_editor_absoluteY="0dp">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ListView
                 android:id="@+id/room_list_view"
                 android:layout_width="match_parent"
-                android:layout_height="600dp"
+                android:layout_height="730dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-
             </ListView>
+
         </LinearLayout>
-
-        <Button
-            android:id="@+id/back_to_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="메뉴"
-            android:layout_gravity="center"/>
-
-    </LinearLayout>
 
 </ScrollView>

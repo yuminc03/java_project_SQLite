@@ -9,9 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Byeruss_sqlite">
-        <activity android:name=".RoomListActivity"></activity>
-        <activity android:name=".RoomCreateActivity" />
-        <activity android:name=".RoomFindActivity" />
+        <activity android:name=".MemberListActivity"
+            android:parentActivityName=".RoomListActivity"/>
+        <activity android:name=".RoomListActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".RoomCreateActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".RoomFindActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

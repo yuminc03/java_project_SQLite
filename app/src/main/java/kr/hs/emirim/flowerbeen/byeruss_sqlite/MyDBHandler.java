@@ -17,10 +17,6 @@ public class MyDBHandler {
         mySQLiteOpenHelper = new MySQLiteOpenHelper(context);
     }
 
-//    public static MyDBHandler open(Context context, String name) {
-//        return new MyDBHandler(context, name);
-//    }
-
     public Cursor select()
     {
         sqLiteDatabase = mySQLiteOpenHelper.getReadableDatabase();
